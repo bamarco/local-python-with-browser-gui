@@ -18,4 +18,4 @@ jobs:
       - name: Build Executable with pyinstaller
         run: .venv/Scripts/activate && pyinstaller -n PingPong --onefile backend.py
       - name: Test executable
-        run: cd dist && PingPong.exe
+        run: cd .\dist && .\PingPong.exe ping

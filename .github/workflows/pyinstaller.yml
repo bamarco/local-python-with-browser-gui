@@ -18,8 +18,4 @@ jobs:
       - name: Build Executable with pyinstaller
         run: .venv/Scripts/activate && pyinstaller -n PingPong --onefile backend.py
       - name: Test executable
-        run: cd dist &&
-      - uses: actions/upload-artifact@v4
-        with:
-          name: SARA-ICE
-          path: dist/SARA-ICE_Local64.exe
+        run: cd dist && PingPong.exe

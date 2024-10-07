@@ -1,0 +1,25 @@
+name: Test Pyinstaller Executable
+
+on:
+  push:
+    branches: [staging]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip" # caching pip dependencies
+      - name: Install Python Dependencies
+        run: python -m venv .venv && .venv/Scripts/activate && pip install -r requirements.txt
+      - name: Build Executable with pyinstaller
+        run: .venv/Scripts/activate && pyinstaller -n PingPong --onefile backend.py
+      - name: Test executable
+        run: cd dist &&
+      - uses: actions/upload-artifact@v4
+        with:
+          name: SARA-ICE
+          path: dist/SARA-ICE_Local64.exe

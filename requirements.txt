@@ -1,0 +1,4 @@
+pyinstaller
+flask
+flask-cors
+waitress

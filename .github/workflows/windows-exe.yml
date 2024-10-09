@@ -1,0 +1,31 @@
+name: Windows Executable
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+      - run: npm ci
+        working-directory: ./frontend
+      - name: Build Frontend
+        working-directory: ./frontend
+        run: npm run build
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip" # caching pip dependencies
+      - name: Install Python Dependencies
+        run: python -m venv .venv && .venv/Scripts/activate && pip install -r requirements.txt
+      - name: Build Executable with pyinstaller
+        run: .venv/Scripts/activate && pyinstaller -n PingPong --add-data frontend/dist/:frontend/dist/ --icon frontend/public/favicon.ico --onefile app.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ping-pong
+          path: dist/PingPong.exe

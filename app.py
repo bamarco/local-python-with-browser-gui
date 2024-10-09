@@ -5,6 +5,7 @@ import flask
 import waitress
 from flask import Flask, send_from_directory
 from flask_cors import CORS
+import backend
 
 def resource_path(relative_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """
@@ -40,7 +41,7 @@ def flask_app(config):
 
     @app.route('/ping', methods=['GET'])
     def ping_pong():
-        return 'pong'
+        return {'msg': backend.pong("ping")}
 
     #@app.route('/favicon.ico')
     #def favicon():
@@ -64,7 +65,7 @@ def run_dev_server(config):
     Run the server in development mode. We use this function because
     `flask run dev` is unavailable
     """
-    app = flask_app(config)
+    app = flask_app(Config(5173))
     app.run(port=config.port, use_reloader=False, debug=True)
 
 def run_prod_server(config):
@@ -85,4 +86,7 @@ class Config:
 
 if __name__ == '__main__':
     config = Config()
-    run_prod_server(config)
+    if len(sys.argv) > 1 and sys.argv[1] == 'debug':
+        run_dev_server(config)
+    else:
+        run_prod_server(config)

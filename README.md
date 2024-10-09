@@ -34,14 +34,14 @@ RPC:
 For a broader overview of API choices read [An architect's guide to APIs: SOAP, REST, GraphQL, and gRPC](https://www.redhat.com/architect/apis-soap-rest-graphql-grpc) and [What is the current choice for doing rpc in python](https://stackoverflow.com/questions/1879971/what-is-the-current-choice-for-doing-rpc-in-python).
 
 ### Flask
-[Flask](https://flask.palletsprojects.com/en/3.0.x/) is currently the large popular web framework for python. The tradeoffs are typical of popular frameworks.
+[Flask](https://flask.palletsprojects.com/en/3.0.x/) is a large, popular web framework for python. The tradeoffs are typical of popular frameworks.
 
 - [app.py](app.py)
 
 #### Positives
 - lots of features
 - documentation is ubiquitous
-- most edge cases are already been addressed and worked around 
+- most edge cases have already been addressed 
 - easier to find developers already familiar with it
 - code can be reused for web deployment
 

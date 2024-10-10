@@ -73,6 +73,7 @@ def run_prod_server(config):
     Run the server in production mode.
     """
     app = flask_app(config)
+    print(f"Open a web browser to http://127.0.0.1:{config.port}/frontend")
     waitress.serve(app, port=config.port, url_scheme="http")
 
 

@@ -174,13 +174,19 @@ Types of deployment for a Service Backend:
 
 #### Exectuable Service
 Windowed:
+
 Starting the Backend also displays a Backend Window. The Backend Window will direct the user to the browser where the Frontend resides. When the Backend Window is closed the Backend stops and the Frontend no longer function. The frontend should detect when the backend is closed and direct the user to restart the backend if it cannot do so automatically.
 
+
 Within Secondary Application:
+
 Starting the backend 
 
+
 Websocket/Polling with Timeouts:
+
 The Backend closes when no more tabs are open in the application. It will communicate with the Frontend to determine when all instances of the Frontend have closed, at which point it will shutdown. The frontend should detect when the backend is shutdown and direct the user to restart the backend if it cannot do so automatically.
+
 
 #### Containerized Service
 The user will need to install and become familar with tools such as Docker or Podman. These tools are typically designed for more technical users. The Backend and Frontend will need to be started separately. 
@@ -199,20 +205,31 @@ We can use a python [Virtual Environment (venv)](https://docs.python.org/3/libra
 #### Linux/OSX
 ``` sh
 python -m venv .venv
-```
-
-``` sh
 source .venv/bin/activate
+<<run the application>>
+deactivate
 ```
 
 #### Windows
 We'll have a better time if we install a recent version of [powershell](https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-windows?view=powershell-7.4)
 ``` sh
 python -m venv venv
+.\venv\Scripts\activate
+<<run the application>>
+deactivate
 ```
 
+#### All Operating Systems
+Run the application during development:
+
 ``` sh
-.\venv\Scripts\activate
+python app.py debug
+```
+
+Run the application during deployment:
+
+``` sh
+python app.py
 ```
 
 ## Build System

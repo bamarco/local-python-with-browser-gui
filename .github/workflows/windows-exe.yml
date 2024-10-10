@@ -2,7 +2,7 @@ name: Windows Executable
 
 on:
   push:
-    branches: [main]
+    branches: [staging]
 
 jobs:
   build:

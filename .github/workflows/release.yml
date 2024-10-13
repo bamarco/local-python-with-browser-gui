@@ -26,4 +26,6 @@ jobs:
       - name: Build Executable with pyinstaller
         run: .venv/Scripts/activate && pyinstaller -n PingPong --add-data frontend/dist/:frontend/dist/ --icon frontend/public/favicon.ico --onefile app.py
       - name: Upload Binary
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: gh release upload ${{ github.ref }} dist/PingPong.exe

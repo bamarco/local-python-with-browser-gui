@@ -38,7 +38,7 @@ jobs:
       GH_TOKEN: ${{ github.token }}
 
     permissions:
-      contents: read
+      contents: write
       packages: write
 
     steps:

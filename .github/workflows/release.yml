@@ -47,4 +47,4 @@ jobs:
         with:
           name: ping-pong
       - name: Upload Binary
-        run: gh release upload ${{ github.ref_name }} ping-pong.zip
+        run: gh release upload ${{ github.ref_name }} PingPong.exe

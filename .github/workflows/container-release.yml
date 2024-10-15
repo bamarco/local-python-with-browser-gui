@@ -23,6 +23,6 @@ jobs:
         id: build-image
         run: |
           podman build . -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:$GITHUB_SHA
-          podman save ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:$GITHUB_SHA > ./ping-pong-container.tar
+          podman save ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:$GITHUB_SHA > ./${{ APP_NAME }}.container.tar
       - name: Upload Container
-        run: gh release upload ${{ github.ref_name }} ./{{ APP_NAME }}.container.tar
+        run: gh release upload ${{ github.ref_name }} ./${{ APP_NAME }}.container.tar

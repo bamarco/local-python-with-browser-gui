@@ -47,7 +47,7 @@ jobs:
             --window-size 600 300 \
             --icon-size 100 \
             --icon "${{ env.APP_NAME }}.app" 175 120 \
-            --hide-extension "#{{ env.APP_NAME }}.app" \
+            --hide-extension "${{ env.APP_NAME }}.app" \
             --app-drop-link 425 120 \
             "dist/${{ env.APP_NAME }}.dmg" \
             "dist/dmg/"

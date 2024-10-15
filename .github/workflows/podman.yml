@@ -16,7 +16,7 @@ jobs:
       - name: Buildah Action
         id: build-image
         run: |
-          podman build -f ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:$GITHUB_SHA
+          podman build . -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:$GITHUB_SHA
           mkdir -p /srv/app
           podman save ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:$GITHUB_SHA > /srv/app/ping-pong-container.tar
       - name: Upload Container

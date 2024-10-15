@@ -2,7 +2,7 @@ name: Upload Release Artifacts
 
 on:
   release:
-    types: [prereleased]
+    types: [released]
 
 jobs:
   build:

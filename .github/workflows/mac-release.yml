@@ -4,14 +4,15 @@ on:
   release:
     types: [prereleased]
 
+env:
+  GH_TOKEN: ${{ github.token }}
+  APP_NAME: PingPong
+
 jobs:
   build:
     runs-on: macos-12
     permissions:
       contents: write
-    env:
-      GH_TOKEN: ${{ github.token }}
-      APP_NAME: PingPong
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -28,6 +29,8 @@ jobs:
           cache: "pip" # caching pip dependencies
       - name: Install Python Dependencies
         run: python -m venv .venv && source .venv/bin/activate && pip install -r requirements.txt
+      - name: Install Icon Converter
+        run: source .venv/bin/activate && pip install pillow
       - name: Build Executable with pyinstaller
         run: source .venv/bin/activate && pyinstaller -n ${{ env.APP_NAME }} --add-data frontend/dist/:frontend/dist/ --windowed --icon frontend/public/favicon.ico --onefile app.py
       - name: Install create-dmg

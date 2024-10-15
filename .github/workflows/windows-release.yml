@@ -4,14 +4,15 @@ on:
   release:
     types: [prereleased]
 
+env:
+  GH_TOKEN: ${{ github.token }}
+  APP_NAME: PingPong
+
 jobs:
   build:
     runs-on: windows-latest
     permissions:
       contents: write
-    env:
-      GH_TOKEN: ${{ github.token }}
-      APP_NAME: PingPong
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4

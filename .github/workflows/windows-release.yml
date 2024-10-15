@@ -11,6 +11,7 @@ jobs:
       contents: write
     env:
       GH_TOKEN: ${{ github.token }}
+      APP_NAME: PingPong
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -28,6 +29,6 @@ jobs:
       - name: Install Python Dependencies
         run: python -m venv .venv && .venv/Scripts/activate && pip install -r requirements.txt
       - name: Build Executable with pyinstaller
-        run: .venv/Scripts/activate && pyinstaller -n PingPong --add-data frontend/dist/:frontend/dist/ --icon frontend/public/favicon.ico --onefile app.py
+        run: .venv/Scripts/activate && pyinstaller -n ${{ env.APP_NAME }} --add-data frontend/dist/:frontend/dist/ --icon frontend/public/favicon.ico --onefile app.py
       - name: Upload Binary
-        run: gh release upload ${{ github.ref_name }} PingPong.exe
+        run: gh release upload ${{ github.ref_name }} dist/${{ env.APP_NAME }}.exe

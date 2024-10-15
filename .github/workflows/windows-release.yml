@@ -1,12 +1,16 @@
-name: Upload Release Artifacts
+name: Build and Upload Windows Executable
 
 on:
   release:
-    types: [released]
+    types: [prereleased]
 
 jobs:
   build:
     runs-on: windows-latest
+    permissions:
+      contents: write
+    env:
+      GH_TOKEN: ${{ github.token }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -25,26 +29,5 @@ jobs:
         run: python -m venv .venv && .venv/Scripts/activate && pip install -r requirements.txt
       - name: Build Executable with pyinstaller
         run: .venv/Scripts/activate && pyinstaller -n PingPong --add-data frontend/dist/:frontend/dist/ --icon frontend/public/favicon.ico --onefile app.py
-      - uses: actions/upload-artifact@v4
-        with:
-          name: ping-pong
-          path: dist/PingPong.exe
-          retention-days: 1
-  upload:
-    runs-on: ubuntu-latest
-    needs: build
-
-    env:
-      GH_TOKEN: ${{ github.token }}
-
-    permissions:
-      contents: write
-      packages: write
-
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/download-artifact@v4
-        with:
-          name: ping-pong
       - name: Upload Binary
         run: gh release upload ${{ github.ref_name }} PingPong.exe

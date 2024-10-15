@@ -1,4 +1,4 @@
-name: Build and Upload Windows Executable
+name: Build and Upload Mac Executable
 
 on:
   release:
@@ -29,24 +29,24 @@ jobs:
       - name: Install Python Dependencies
         run: python -m venv .venv && .venv/Scripts/activate && pip install -r requirements.txt
       - name: Build Executable with pyinstaller
-        run: source .venv/bin/activate && pyinstaller -n ${{ APP_NAME }} --add-data frontend/dist/:frontend/dist/ --windowed --icon frontend/public/favicon.ico --onefile app.py
+        run: source .venv/bin/activate && pyinstaller -n ${{ env.APP_NAME }} --add-data frontend/dist/:frontend/dist/ --windowed --icon frontend/public/favicon.ico --onefile app.py
       - name: Install create-dmg
         run: brew install create-dmg
       - name: Build dmg
         run: |
           mkdir -p dist/dmg
           rm -rf dist/dmg/*
-          cp -r dist/${{ APP_NAME }}.app dist/dmg/
+          cp -r dist/${{ env.APP_NAME }}.app dist/dmg/
           create-dmg \
-            --volname ${{ APP_NAME }} \
+            --volname ${{ env.APP_NAME }} \
             --volicon "frontend/public/favicon.ico" \
             --window-pos 200 120 \
             --window-size 600 300 \
             --icon-size 100 \
-            --icon "${{ APP_NAME }}.app" 175 120 \
-            --hide-extension "#{{ APP_NAME }}.app" \
+            --icon "${{ env.APP_NAME }}.app" 175 120 \
+            --hide-extension "#{{ env.APP_NAME }}.app" \
             --app-drop-link 425 120 \
-            "dist/${{ APP_NAME }}.dmg" \
+            "dist/${{ env.APP_NAME }}.dmg" \
             "dist/dmg/"
       - name: Upload dmg
-        run: gh release upload ${{ github.ref_name }} dist/${{ APP_NAME }}.dmg
+        run: gh release upload ${{ github.ref_name }} dist/${{ env.APP_NAME }}.dmg

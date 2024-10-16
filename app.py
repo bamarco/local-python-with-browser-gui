@@ -25,10 +25,10 @@ def flask_app(config):
     while losing the ability to use `flask run` during development.
     """
     app = Flask(__name__)
-    CORS(app, resources={r'/*': {'origins': [f'http://127.0.0.1:{config.port}',
-                                             f'http://localhost:{config.port}',
-                                             f'https://127.0.0.1:{config.port}',
-                                             f'https://localhost:{config.port}']}})
+    CORS(app, resources={r'/*': {'origins': [r'http://127\.0\.0\.1:\d+',
+                                             r'http://localhost:\d+',
+                                             r'https://127\.0\.0\.1:\d+',
+                                             r'https://localhost:\d+']}})
 
     @app.route("/")
     def hello():
